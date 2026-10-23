@@ -1,8 +1,10 @@
 import sys
 import os
 
-# Agregamos la ruta principal al sistema para que encuentre app.py
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Asegurar que el directorio raíz esté en el path
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if path not in sys.path:
+    sys.path.insert(0, path)
 
 import serverless_wsgi
 from app import app
