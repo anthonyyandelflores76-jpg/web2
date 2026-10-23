@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TALLER.TCI - Tienda Oficial</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-body: #f1f3ec; /* Fondo crema marfil cálido */
+      --bg-card: #ffffff;
+      --text-main: #1f2937;
+      --accent-green: #271fb5;
+      --accent-dark: #0f172a;
+      --border-custom: #e2dad0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    /* Barra de Navegación Exclusiva TCI */
+    .navbar-custom {
+      background: #02f73b;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      padding: 14px 35px;
+      border-bottom: 1px solid var(--border-custom);
+    }
+
+    .navbar-brand-taller {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: var(--accent-dark);
+      text-decoration: none;
+      cursor: default;
+      user-select: none;
+      letter-spacing: -0.5px;
+    }
+    .navbar-brand-taller span {
+      color: var(--accent-green);
+    }
+
+    .nav-links-center {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+    .nav-links-center a {
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .nav-links-center a:hover {
+      color: var(--accent-green);
+    }
+
+    /* Selector de Categorías Estilizado */
+    .category-dropdown-pill {
+      background: #eee8de;
+      border: 1px solid var(--border-custom);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-weight: 600;
+      color: #374151;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .category-dropdown-pill:hover {
+      background: #e4dcd0;
+      color: #111827;
+    }
+
+    /* Botón Carrito */
+    .btn-top-cart {
+      background-color: var(--accent-dark);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-top-cart:hover {
+      background-color: #1e293b;
+      color: white;
+      transform: translateY(-1px);
+    }
+    .cart-badge-count {
+      background-color: var(--accent-green);
+      color: white;
+      border-radius: 50%;
+      padding: 2px 7px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* Redes Sociales Originales */
+    .social-icon-fb {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #1877f2;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 5px rgba(24, 119, 242, 0.2);
+      transition: transform 0.2s;
+    }
+    .social-icon-fb:hover { transform: scale(1.1); color: white; }
+
+    .social-icon-tk {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #000000;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s;
+    }
+    .social-icon-tk:hover { transform: scale(1.1); color: white; }
+
+    /* Cinta Negra Dinámica */
+    .black-ribbon {
+      background-color: #111827;
+      color: #fff;
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      border-bottom: 3px solid var(--accent-green);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .ribbon-track {
+      display: inline-block;
+      white-space: nowrap;
+      animation: scrollRibbon 35s linear infinite;
+    }
+    .ribbon-item {
+      display: inline-block;
+      padding-right: 60px;
+    }
+    @keyframes scrollRibbon {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: var(--accent-dark);
+      letter-spacing: -0.5px;
+    }
+
+    /* Tarjetas del Carrusel Destacadas */
+    .banner-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-custom);
+      border-radius: 18px;
+      padding: 0 0 14px 0; /* Sin relleno superior para que la imagen ocupe todo el ancho de la tarjeta */
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+      height: 100%;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .banner-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+    .banner-img-container {
+      width: 100%;
+      height: 210px; /* Mayor altura para que se aprecie la foto al máximo */
+      overflow: hidden;
+      position: relative;
+    }
+    .banner-img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .banner-card:hover .banner-img {
+      transform: scale(1.04); /* Efecto zoom suave al pasar el mouse */
+    }
+
+    /* Pestañas de Categorías */
+    .category-nav {
+      border-bottom: 2px solid var(--border-custom);
+      display: flex;
+      gap: 30px;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 0;
+      margin-bottom: 35px;
+      scrollbar-width: none;
+    }
+    .category-nav::-webkit-scrollbar { display: none; }
+    .category-link {
+      color: #6b7280;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding-bottom: 10px;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .category-link:hover, .category-link.active {
+      color: var(--accent-green);
+    }
+    .category-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--accent-green);
+      border-radius: 2px;
+    }
+
+    .badge-category {
+      font-size: 0.65rem;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+      background-color: #eee8de;
+      color: #4b5563;
+    }
+    .badge-taller {
+      font-size: 0.68rem;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 700;
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .btn-whatsapp {
+      background-color: #25d366;
+      color: white;
+      font-weight: 600;
+      border-radius: 50px;
+      border: none;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      transition: background 0.2s;
+    }
+    .btn-whatsapp:hover { background-color: #20ba5a; color: white; }
+
+    /* Tarjetas de Productos Exclusivas */
+    .card-product {
+      border: 1px solid var(--border-custom);
+      border-radius: 16px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background: var(--bg-card);
+      overflow: hidden;
+    }
+    .card-product:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    }
+    .card-img-top {
+      height: 160px;
+      object-fit: cover;
+    }
+    .price {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--accent-green);
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    /* Botón Flotante Carrito */
+    .floating-cart-circle {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 65px;
+      height: 65px;
+      background-color: var(--accent-dark);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      z-index: 1050;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    .floating-cart-circle:hover {
+      transform: scale(1.08);
+      background-color: #1e293b;
+    }
+    .floating-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background-color: var(--accent-green);
+      color: white;
+      border-radius: 50%;
+      padding: 2px 7px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      border: 2px solid #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de Navegación -->
+  <nav class="navbar navbar-custom px-4 sticky-top">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+      
+      <!-- Logo Secreto (Doble clic para panel de admin) -->
+      <span class="navbar-brand-taller" id="secretAdminTrigger" title="Taller TCI">
+        TALLER.<span>TCI</span>
+      </span>
+
+      <!-- Menú Central -->
+      <div class="d-none d-lg-flex align-items-center gap-4">
+        <!-- Selector Categorías -->
+        <div class="dropdown">
+          <button class="btn category-dropdown-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categorías
+          </button>
+          <ul class="dropdown-menu shadow-sm border-0 rounded-4 p-2">
+            <li><a class="dropdown-item rounded-3 py-2 fw-semibold" href="{{ url_for('index') }}">Todos los productos</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item rounded-3 py-2" href="{{ url_for('index', categoria='Sublimación') }}">Sublimación</a></li>
+            <li><a class="dropdown-item rounded-3 py-2" href="{{ url_for('index', categoria='Merchandising') }}">Merchandising</a></li>
+            <li><a class="dropdown-item rounded-3 py-2" href="{{ url_for('index', categoria='Papelería') }}">Papelería</a></li>
+            <li><a class="dropdown-item rounded-3 py-2" href="{{ url_for('index', categoria='Cristalería') }}">Cristalería</a></li>
+          </ul>
+        </div>
+
+        <ul class="nav-links-center">
+          <li><a href="{{ url_for('index') }}">Inicio</a></li>
+          <li><a href="#catalogo">Productos</a></li>
+          <li><a href="#projectCarousel">Proyectos</a></li>
+          <li><a href="https://wa.me/51938124557?text=Hola,%20deseo%20mas%20informacion%20sobre%20el%20taller" target="_blank">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Redes y Carrito -->
+      <div class="d-flex align-items-center gap-2">
+        <a href="https://www.facebook.com/share/14svewbvqyy/?mibextid=wwXIfr" target="_blank" class="social-icon-fb" title="Facebook">f</a>
+        <a href="https://www.tiktok.com/@taller.computacion.tci?_r=1&_t=ZS-9AnnRDwFwUU" target="_blank" class="social-icon-tk" title="TikTok">♪</a>
+
+        <button class="btn-top-cart ms-1" data-bs-toggle="offcanvas" data-bs-target="#cartSidebar">
+          🛒 Carrito <span class="cart-badge-count" id="cart-count">0</span>
+        </button>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Cinta Negra con Movimiento -->
+  <div class="black-ribbon">
+    <div class="ribbon-track">
+      <span class="ribbon-item">TALLER.TCI — Innovación y Tecnología Educativa</span>
+      <span class="ribbon-item">Especialistas en Sublimación, Merchandising, Papelería y Cristalería</span>
+      <span class="ribbon-item">Respaldados por Politécnico Pedro Abel Labarthe Durand</span>
+      <span class="ribbon-item">Calidad y Diseño Exclusivo</span>
+      <span class="ribbon-item">TALLER.TCI — Innovación y Tecnología Educativa</span>
+      <span class="ribbon-item">Especialistas en Sublimación, Merchandising, Papelería y Cristalería</span>
+      <span class="ribbon-item">Respaldados por Politécnico Pedro Abel Labarthe Durand</span>
+      <span class="ribbon-item">Calidad y Diseño Exclusivo</span>
+    </div>
+  </div>
+
+  <!-- Carrusel de Proyectos (Solo se muestra si NO hay una categoría seleccionada) -->
+  {% if not categoria_activa %}
+  <div class="container my-5" id="projectCarousel">
+    <div class="text-center mb-4">
+      <h2 class="mb-2">Proyectos y Trabajos Destacados</h2>
+      <p class="text-muted small">Conoce nuestras creaciones y eventos principales</p>
+    </div>
+
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+      <div class="carousel-inner">
+        <!-- Grupo 1 (4 elementos) -->
+        <div class="carousel-item active">
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <div class="banner-card d-flex flex-column">
+                <div class="banner-img-container">
+                  <img src="{{ url_for('static', filename='carusel/estudiante1.jpg') }}" class="banner-img" alt="Estudiante 1">
+                </div>
+                <div class="p-3 flex-grow-1 d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge-category">Textil</span>
+                    <span class="badge-taller">TTCI</span>
+                  </div>
+                  <h6 class="fw-bold text-dark mb-1" style="font-size: 0.92rem;">Diseños y Estampados</h6>
+                  <p class="text-muted small flex-grow-1" style="font-size: 0.78rem;">Polos y productos gráficos vectorizados con acabados de alta calidad.</p>
+                  <a href="https://wa.me/51938124557?text=Hola,%20deseo%20mas%20informacion%20sobre%20Estampados" target="_blank" class="btn btn-whatsapp w-100 mt-2">Cotizar por WhatsApp</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="banner-card d-flex flex-column">
+                <div class="banner-img-container">
+                  <img src="{{ url_for('static', filename='carusel/estudiante2.jpg') }}" class="banner-img" alt="Estudiante 2">
+                </div>
+                <div class="p-3 flex-grow-1 d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge-category">Feria</span>
+                    <span class="badge-taller">TTCI</span>
+                  </div>
+                  <h6 class="fw-bold text-dark mb-1" style="font-size: 0.92rem;">PROYECTOS EMPRENDIMIENTO</h6>
+                  <p class="text-muted small flex-grow-1" style="font-size: 0.78rem;">Demostración práctica de productos desarrollados por estudiantes.</p>
+                  <a href="https://wa.me/51938124557?text=Hola,%20deseo%20mas%20informacion%20sobre%20Proyectos" target="_blank" class="btn btn-whatsapp w-100 mt-2">Cotizar por WhatsApp</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="banner-card d-flex flex-column">
+                <div class="banner-img-container">
+                  <img src="{{ url_for('static', filename='carusel/estudiante3.jpg') }}" class="banner-img" alt="Estudiante 3">
+                </div>
+                <div class="p-3 flex-grow-1 d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge-category">Impresiones</span>
+                    <span class="badge-taller">TTCI</span>
+                  </div>
+                  <h6 class="fw-bold text-dark mb-1" style="font-size: 0.92rem;">PROYECTOS TÉCNICOS</h6>
+                  <p class="text-muted small flex-grow-1" style="font-size: 0.78rem;">Muestra de material impreso desarrollado en el taller.</p>
+                  <a href="https://wa.me/51938124557?text=Hola,%20deseo%20mas%20informacion%20sobre%20Proyectos" target="_blank" class="btn btn-whatsapp w-100 mt-2">Cotizar por WhatsApp</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="banner-card d-flex flex-column">
+                <div class="banner-img-container">
+                  <img src="{{ url_for('static', filename='carusel/estudiante4.jpg') }}" class="banner-img" alt="Estudiante 4">
+                </div>
+                <div class="p-3 flex-grow-1 d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge-category">Diseño</span>
+                    <span class="badge-taller">TTCI</span>
+                  </div>
+                  <h6 class="fw-bold text-dark mb-1" style="font-size: 0.92rem;">Tarjetas de Invitación</h6>
+                  <p class="text-muted small flex-grow-1" style="font-size: 0.78rem;">Elaboración creativa para quinceañeros y eventos especiales.</p>
+                  <a href="https://wa.me/51938124557?text=Hola,%20deseo%20mas%20informacion%20sobre%20Tarjetas" target="_blank" class="btn btn-whatsapp w-100 mt-2">Cotizar por WhatsApp</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grupo 2 (4 elementos adicionales) -->
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <div class="banner-card d-flex flex-column">
+                <div class="banner-img-container">
+                  <img src="{{ url_for('static', filename='carusel/estudiante5.jpg') }}" class="banner-img" alt="Estudiante 5">
+                </div>
+                <div class="p-3 flex-grow-1 d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge-category">Cristal</span>
+                    <span class="badge-taller">TTCI</span>
+                  </div>
+                  <h6 class="fw-bold text-dark mb-1" style="font-size: 0.92rem;">Jarras Personalizadas</h6>
+                  <p class="text-muted small flex-grow-1" style="font-size: 0.78rem;">Trabajos de grabado con frases y motivos dedicados.</p>
+                  <a href="https://wa.me/51938124557?text=Hola,%20deseo%20mas%20informacion%20sobre%20Jarras" target="_blank" class="btn btn-whatsapp w-100 mt-2">Cotizar por WhatsApp</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="banner-card d-flex flex-column">
+                <div class="banner-img-container">
+                  <img src="{{ url_for('static', filename='carusel/estudiante6.jpg') }}" class="banner-img" alt="Estudiante 6">
+                </div>
+                <div class="p-3 flex-grow-1 d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge-category">Cristalería</span>
+                    <span class="badge-taller">TTCI</span>
+                  </div>
+                  <h6 class="fw-bold text-dark mb-1" style="font-size: 0.92rem;">Cristalería Temática</h6>
+                  <p class="text-muted small flex-grow-1" style="font-size: 0.78rem;">Diseños temáticos de personajes plasmados en jarras.</p>
+                  <a href="https://wa.me/51938124557?text=Hola,%20deseo%20mas%20informacion%20sobre%20Cristaleria" target="_blank" class="btn btn-whatsapp w-100 mt-2">Cotizar por WhatsApp</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="banner-card d-flex flex-column">
+                <div class="banner-img-container">
+                  <img src="{{ url_for('static', filename='carusel/estudiante1.jpg') }}" class="banner-img" alt="Estudiante 1">
+                </div>
+                <div class="p-3 flex-grow-1 d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge-category">Textil</span>
+                    <span class="badge-taller">TTCI</span>
+                  </div>
+                  <h6 class="fw-bold text-dark mb-1" style="font-size: 0.92rem;">Diseños y Estampados</h6>
+                  <p class="text-muted small flex-grow-1" style="font-size: 0.78rem;">Polos y productos gráficos vectorizados con acabados de alta calidad.</p>
+                  <a href="https://wa.me/51938124557?text=Hola,%20deseo%20mas%20informacion%20sobre%20Estampados" target="_blank" class="btn btn-whatsapp w-100 mt-2">Cotizar por WhatsApp</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="banner-card d-flex flex-column">
+                <div class="banner-img-container">
+                  <img src="{{ url_for('static', filename='carusel/estudiante2.jpg') }}" class="banner-img" alt="Estudiante 2">
+                </div>
+                <div class="p-3 flex-grow-1 d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge-category">Feria</span>
+                    <span class="badge-taller">TTCI</span>
+                  </div>
+                  <h6 class="fw-bold text-dark mb-1" style="font-size: 0.92rem;">PROYECTOS EMPRENDIMIENTO</h6>
+                  <p class="text-muted small flex-grow-1" style="font-size: 0.78rem;">Demostración práctica de productos desarrollados por estudiantes.</p>
+                  <a href="https://wa.me/51938124557?text=Hola,%20deseo%20mas%20informacion%20sobre%20Proyectos" target="_blank" class="btn btn-whatsapp w-100 mt-2">Cotizar por WhatsApp</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" style="width: 3%;">
+        <span class="carousel-control-prev-icon bg-dark rounded-circle p-2 shadow" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" style="width: 3%;">
+        <span class="carousel-control-next-icon bg-dark rounded-circle p-2 shadow" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Catálogo de Productos -->
+  <div class="container pb-5 pt-4" id="catalogo">
+    <div class="text-center mb-4">
+      <h2 class="mb-2">Catálogo de Productos</h2>
+      <p class="text-muted small">Explora nuestra gran variedad de artículos personalizados</p>
+    </div>
+
+    <div class="category-nav">
+      <a href="{{ url_for('index') }}" class="category-link {% if not categoria_activa %}active{% endif %}">Todos los productos</a>
+      <a href="{{ url_for('index', categoria='Sublimación') }}" class="category-link {% if categoria_activa == 'Sublimación' %}active{% endif %}">Sublimación</a>
+      <a href="{{ url_for('index', categoria='Merchandising') }}" class="category-link {% if categoria_activa == 'Merchandising' %}active{% endif %}">Merchandising</a>
+      <a href="{{ url_for('index', categoria='Papelería') }}" class="category-link {% if categoria_activa == 'Papelería' %}active{% endif %}">Papelería</a>
+      <a href="{{ url_for('index', categoria='Cristalería') }}" class="category-link {% if categoria_activa == 'Cristalería' %}active{% endif %}">Cristalería</a>
+    </div>
+
+    {% if productos %}
+      <div class="row">
+        {% for p in productos %}
+          <div class="col-md-3 mb-4">
+            <div class="card card-product h-100">
+              {% if p.imagen_url %}
+                <div class="overflow-hidden">
+                  <img src="{{ p.imagen_url }}" class="card-img-top" alt="{{ p.nombre }}">
+                </div>
+              {% else %}
+                <div class="bg-secondary text-white text-center d-flex align-items-center justify-content-center card-img-top">
+                  Sin Imagen
+                </div>
+              {% endif %}
+              <div class="card-body d-flex flex-column p-3">
+                <div class="mb-1">
+                  <span class="badge-category">{{ p.categoria }}</span>
+                </div>
+                <h6 class="card-title fw-bold text-dark mb-1" style="font-size: 0.92rem;">{{ p.nombre }}</h6>
+                <p class="card-text text-muted small mb-3" style="font-size: 0.78rem;">{{ p.descripcion or 'Producto oficial de calidad.' }}</p>
+                <div class="mt-auto d-flex justify-content-between align-items-center">
+                  <span class="price">S/. {{ "%.2f"|format(p.precio) }}</span>
+                  <button class="btn btn-outline-dark btn-sm rounded-pill px-3 fw-bold" style="font-size: 0.78rem;" onclick="agregarAlCarrito('{{ p.id }}', '{{ p.nombre }}', '{{ p.precio }}')">Agregar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-warning text-center p-5 shadow-sm rounded-4 bg-white border-0">
+        <h4>No hay productos en esta categoría.</h4>
+        <p class="text-muted small">Prueba seleccionando otra categoría o agrega productos desde el panel.</p>
+        <a href="{{ url_for('index') }}" class="btn btn-outline-dark mt-2 px-4 rounded-pill btn-sm">Ver todos los productos</a>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Botón Flotante Circular del Carrito -->
+  <button class="floating-cart-circle" data-bs-toggle="offcanvas" data-bs-target="#cartSidebar" title="Abrir Carrito">
+    🛒
+    <span class="floating-badge" id="cart-count-floating">0</span>
+  </button>
+
+  <!-- Panel Lateral del Carrito -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartSidebar">
+    <div class="offcanvas-header bg-dark text-white">
+      <h5 class="offcanvas-title fw-bold fs-6">Tu Carrito de Compras</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+      <div id="cart-items" class="flex-grow-1 overflow-auto mb-3">
+        <p class="text-muted text-center mt-4 small">Tu carrito está vacío.</p>
+      </div>
+      <div class="border-top pt-3">
+        <div class="d-flex justify-content-between mb-3 fs-6 fw-bold">
+          <span>Total:</span>
+          <span id="cart-total" class="text-success">S/. 0.00</span>
+        </div>
+        <button class="btn btn-whatsapp w-100 py-2 fw-bold mb-2 shadow-sm" onclick="enviarPedidoWhatsApp()">Comprar por WhatsApp</button>
+        <button class="btn btn-outline-danger w-100 py-2 fw-bold btn-sm" onclick="vaciarCarrito()">Vaciar Carrito</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script del Sistema -->
+  <script>
+    document.getElementById('secretAdminTrigger').addEventListener('dblclick', () => {
+      let pass = prompt('Acceso restringido. Ingrese la contraseña de administrador:');
+      if (pass) {
+        let form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "{{ url_for('login') }}";
+        let input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'password';
+        input.value = pass;
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+      }
+    });
+
+    let carrito = JSON.parse(localStorage.getItem('carrito_tci')) || [];
+
+    function guardarCarrito() {
+      localStorage.setItem('carrito_tci', JSON.stringify(carrito));
+      actualizarContador();
+      actualizarVistaCarrito();
+    }
+
+    function agregarAlCarrito(id, nombre, precio) {
+      let productoExistente = carrito.find(item => item.id === id);
+      if (productoExistente) {
+        productoExistente.cantidad += 1;
+      } else {
+        carrito.push({ id, nombre, precio: parseFloat(precio), cantidad: 1 });
+      }
+      guardarCarrito();
+    }
+
+    function cambiarCantidad(id, cambio) {
+      let item = carrito.find(p => p.id === id);
+      if (item) {
+        item.cantidad += cambio;
+        if (item.cantidad <= 0) {
+          carrito = carrito.filter(p => p.id !== id);
+        }
+      }
+      guardarCarrito();
+    }
+
+    function eliminarProducto(id) {
+      carrito = carrito.filter(p => p.id !== id);
+      guardarCarrito();
+    }
+
+    function vaciarCarrito() {
+      if (confirm('¿Estás seguro de vaciar todo el carrito?')) {
+        carrito = [];
+        guardarCarrito();
+      }
+    }
+
+    function actualizarContador() {
+      let totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+      document.getElementById('cart-count').innerText = totalItems;
+      document.getElementById('cart-count-floating').innerText = totalItems;
+    }
+
+    function actualizarVistaCarrito() {
+      let contenedor = document.getElementById('cart-items');
+      let totalSpan = document.getElementById('cart-total');
+      
+      if (carrito.length === 0) {
+        contenedor.innerHTML = '<p class="text-muted text-center mt-4 small">Tu carrito está vacío.</p>';
+        totalSpan.innerText = 'S/. 0.00';
+        return;
+      }
+
+      let html = '';
+      let total = 0;
+
+      carrito.forEach(item => {
+        let subtotal = item.precio * item.cantidad;
+        total += subtotal;
+        html += `
+          <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+            <div>
+              <h6 class="mb-0 fw-bold small">${item.nombre}</h6>
+              <small class="text-muted" style="font-size: 0.75rem;">S/. ${item.precio.toFixed(2)} x ${item.cantidad}</small>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <button class="btn btn-sm btn-outline-secondary px-2 py-0" onclick="cambiarCantidad('${item.id}', -1)">-</button>
+              <span class="fw-bold small">${item.cantidad}</span>
+              <button class="btn btn-sm btn-outline-secondary px-2 py-0" onclick="cambiarCantidad('${item.id}', 1)">+</button>
+              <button class="btn btn-sm btn-danger px-2 py-0 ms-1" onclick="eliminarProducto('${item.id}')" title="Eliminar">🗑️</button>
+            </div>
+          </div>
+        `;
+      });
+
+      contenedor.innerHTML = html;
+      totalSpan.innerText = 'S/. ' + total.toFixed(2);
+    }
+
+    function enviarPedidoWhatsApp() {
+      if (carrito.length === 0) {
+        alert('Tu carrito está vacío.');
+        return;
+      }
+
+      let mensaje = "Hola, deseo realizar el siguiente pedido en TALLER.TCI:\n\n";
+      let total = 0;
+
+      carrito.forEach(item => {
+        let subtotal = item.precio * item.cantidad;
+        total += subtotal;
+        mensaje += `- ${item.nombre} (x${item.cantidad}) : S/. ${subtotal.toFixed(2)}\n`;
+      });
+
+      mensaje += `\n*Total a pagar: S/. ${total.toFixed(2)}*`;
+
+      let numeroWhatsApp = "51938124557";
+      let url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      actualizarContador();
+      actualizarVistaCarrito();
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
